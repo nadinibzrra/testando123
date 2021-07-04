@@ -12,6 +12,7 @@ import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+
 @Controller
 @RequestMapping("/teste")
 public class TesteController {
@@ -19,14 +20,11 @@ public class TesteController {
     @GetMapping
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        String name = request.getParameter("nome");
-        response.getWriter().append("Hello, ").append(name).append(".");
-
         Connection connection = null;
         try {
             connection = ConectaBanco.getConnection();
         } catch (SQLException | URISyntaxException ex) {
-            response.getWriter().append("Connection Failed! Check output console");
+            response.getWriter().append("A conexão falhou!");
         }
 
         if (connection != null) {
