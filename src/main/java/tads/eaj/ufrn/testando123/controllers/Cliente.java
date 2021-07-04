@@ -21,13 +21,15 @@ public class Cliente {
         ProdutoDAO eletro = new ProdutoDAO();
         ArrayList<Produto> pro = eletro.listProduto();
 
+        response.getWriter().println("<h1>LISTA PRODUTOS</h1>");
         response.getWriter().println("<table>" +
                 "        <tr>" +
-                "            <th> nome </th>" +
-                "            <th> preco </th>" +
-                "            <th> cor </th>" +
-                "            <th> marca </th>" +
-                "            <th> potencia </th>" +
+                "            <th> NOME </th>" +
+                "            <th> PRECO </th>" +
+                "            <th> COR </th>" +
+                "            <th> MARCA </th>" +
+                "            <th> POTENCIA </th>" +
+                "            <th> CARRINHO </th>" +
                 "        </tr>");
         for(var p: pro){
             response.getWriter().println("<tr>" +
@@ -36,9 +38,14 @@ public class Cliente {
                     "        <td>" + p.getCor()  + "</td>" +
                     "        <td>" + p.getMarca()  + "</td>" +
                     "        <td>" + p.getPotencia()  + "</td>" +
+                    "        <td><a href= \"/adicionarCarrinho?id=" + p.getId() + "\">adicionar </a></td>" +
                     "    </tr>");
         }
         response.getWriter().println("</table>");
+
+        response.getWriter().println("</br>" +
+                                     "</br>");
+        response.getWriter().println("<a href= /verCarrinho > Ver Carrinho </a>  ");
     }
 
 }

@@ -55,6 +55,7 @@ public class ProdutoDAO {
 
             while (rs.next()){
                 Produto p = new Produto(
+                        rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getDouble("preco"),
                         rs.getString("cor"),

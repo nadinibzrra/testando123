@@ -1,6 +1,7 @@
 package tads.eaj.ufrn.testando123.controllers;
 
 public class Produto {
+    private int id;
     private String nome;
     private double preco;
     private String cor;
@@ -14,6 +15,23 @@ public class Produto {
         this.marca = marca;
         this.potencia = potencia;
 
+    }
+    public Produto(int id, String nome, double preco, String cor, String marca, int potencia) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
+        this.cor = cor;
+        this.marca = marca;
+        this.potencia = potencia;
+
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
