@@ -17,6 +17,7 @@ public class ProdutoDAO {
     private final String DATA_INSERT = "INSERT INTO eletro (NOME,PRECO," +
             "COR,MARCA,POTENCIA) VALUES (?,?,?,?,?)";
     private final String DATA_LIST = "SELECT * FROM eletro ORDER BY ID";
+    private final String DATA_ID = "SELECT * FROM eletro WHERE ID=?";
 
 
     public void createTab() throws SQLException, URISyntaxException {
@@ -77,4 +78,29 @@ public class ProdutoDAO {
         return lista;
     }
 
+    public Produto buscar(int id){
+        Produto p = null;
+        try {
+            Connection c = ConectaBanco.getConnection();
+            PreparedStatement ps = c.prepareStatement(DATA_ID);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                p = new Produto(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getDouble("preco"),
+                        rs.getString("cor"),
+                        rs.getString("marca"),
+                        rs.getInt("potencia")
+                );
+            }
+            c.close();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return p;
+    }
 }

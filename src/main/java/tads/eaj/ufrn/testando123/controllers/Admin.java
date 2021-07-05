@@ -6,10 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,6 +30,14 @@ public class Admin {
                 "       <label>Potencia: </label><input type=int name=potencia  > </br> </br> " +
                 "                <button type=submit  value=submit >ENVIAR</button>  " +
                 "                      </form>  ");
+        Date d = new Date();
+        var acesso = new SimpleDateFormat("dd/MM/yyyy-HH:mm:ss");
+        var dFormatada = acesso.format(d);
+        Cookie c = new Cookie("visita",dFormatada);
+        c.setMaxAge(3600*24);
+        response.addCookie(c);
+
+
     }
     @RequestMapping(value = "/cadastra", method = RequestMethod.POST)
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
