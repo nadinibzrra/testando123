@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @Controller
 @RequestMapping("/admin")
@@ -17,7 +18,7 @@ public class Admin {
     @GetMapping
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.getWriter().println("<h1>CADASTRAR</h1>");
-        response.getWriter().println("<form method = post>" +
+        response.getWriter().println("<form action=/admin/cadastra method = post>" +
                 "       <label>Nome Produto: </label><input type=text name=nome > </br> </br>   " +
                 "       <label>Preco: </label><input type=double name=preco  > </br> </br>  " +
                 "       <label>Cor: </label><input type=text name=cor  > </br> </br>     " +
@@ -27,7 +28,14 @@ public class Admin {
                 "                      </form>  ");
     }
     @RequestMapping(value = "/cadastra", method = RequestMethod.POST)
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
-
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        ProdutoDAO eletro = new ProdutoDAO();
+        String nome = request.getParameter("nome");
+        Double preco = Double.parseDouble(request.getParameter("preco"));
+        String cor = request.getParameter("cor");
+        String marca = request.getParameter("marca");
+        int potencia = Integer.parseInt(request.getParameter("potencia"));
+        eletro.insertProduto(new Produto(nome,preco,cor,marca,potencia));
+        response.sendRedirect("/admin");
     }
 }
